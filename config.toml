@@ -93,7 +93,7 @@ disableHugoGeneratorInject = false
   # Integrate Javascript files or stylesheets by adding the url to the external assets or by
   # linking local files with their path relative to the static folder, e.g. "css/styles.css"
   #
-  customCSS = [ "/fg/frappe-gantt.css" ]
+  customCSS = [ "/fg/frappe-gantt.css", "/css/custom.css" ]
   customJS  = [
 	"https://unpkg.com/jquery",
 	"https://unpkg.com/netlify-auth-providers",
@@ -184,10 +184,10 @@ disableHugoGeneratorInject = false
     identifier = "login"
     name       = "Login"
     url        = "#"
-  [[menu.main]]
-    identifier = "logout"
-    name       = "Logout"
-    url        = "#"
+#  [[menu.main]]
+#    identifier = "logout"
+#    name       = "Logout"
+#    url        = "#"
 
 
 
@@ -198,6 +198,9 @@ disableHugoGeneratorInject = false
     [[module.mounts]]
         source = "js"
         target = "static/js"
+    [[module.mounts]]
+        source = "css"
+        target = "static/css"
 
 [markup.goldmark.renderer]
   unsafe= true

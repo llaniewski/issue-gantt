@@ -34,12 +34,13 @@ function ig_editor_login () {
 
 function ig_editor_logout () {
   Cookies.remove('gh_token');
+  Cookies.remove('gh_profile');
   ig_editor_check_login();
 }
 
 
 $(function() {
-  $("ul.navbar-nav").append(
+  $("ul#navbar-nav").append(
     $("<li>", { class: "nav-item dropdown", id: "nav-logout" }).append(
       $("<a>", { class: "nav-link dropdown-toggle", id:"navbarDropdownMenuLink", 'data-toggle':"dropdown" })
         .append($("<span>", { class:"caret" }))
@@ -107,3 +108,4 @@ function ig_editor_check_login() {
 $(function() { ig_editor_check_login(); })
 
 $(ig_go_secure);
+

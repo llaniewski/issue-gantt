@@ -1,0 +1,32 @@
+.navbar .navbar-title {
+
+}
+
+.navbar .navbar-brand a:hover {
+	text-decoration: none;
+}
+
+.navbar .navbar-brand {
+	text-transform: none;
+	font-size: 1.5em;
+}
+
+.navbar-transparent .navbar-subtitle {
+	display: none;
+}
+
+.avatar-img {
+	margin-top: -30%;
+	margin-bottom: -30%;
+	margin-left: 10%;
+	height: 160%;
+}
+
+.avatar-container {
+	height: 22px;
+	display:inline-block;
+}
+
+#nav-usermenu0 {
+	display: none;
+}

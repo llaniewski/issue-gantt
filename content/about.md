@@ -7,4 +7,5 @@ customJS  = [ "/fg/frappe-gantt.js", "/js/test.js" ]
   name = "Hugo Authors"
 +++
 
+
 <div class="gantt-target"></div>
