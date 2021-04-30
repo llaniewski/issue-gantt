@@ -1,5 +1,5 @@
 [[redirects]]
   force = false
-  from = "/repo/**"
+  from = "/repo/*"
   status = 200
   to = "/repo/"
