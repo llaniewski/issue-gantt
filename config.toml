@@ -189,18 +189,5 @@ disableHugoGeneratorInject = false
 #    name       = "Logout"
 #    url        = "#"
 
-
-
-[module]
-    [[module.mounts]]
-        source = "fg"
-        target = "static/fg"
-    [[module.mounts]]
-        source = "js"
-        target = "static/js"
-    [[module.mounts]]
-        source = "css"
-        target = "static/css"
-
 [markup.goldmark.renderer]
   unsafe= true
