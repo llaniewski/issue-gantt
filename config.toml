@@ -193,7 +193,7 @@ disableHugoGeneratorInject = false
 
 [module]
     [[module.mounts]]
-        source = "node_modules/frappe-gantt/dist"
+        source = "fg"
         target = "static/fg"
     [[module.mounts]]
         source = "js"
