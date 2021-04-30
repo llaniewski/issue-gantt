@@ -1,11 +1,13 @@
 +++
 title = "About"
 date = "2014-04-09"
-aliases = ["about-us","about-hugo","contact"]
-customJS  = [ "/fg/frappe-gantt.js", "/js/test.js" ]
+aliases = ["contact"]
 [ author ]
-  name = "Hugo Authors"
+  name = "Łukasz Łaniewski-Wołłk"
 +++
 
+This is a small tool for making a Gantt plot out of github issues in a repo.
 
-<div class="gantt-target"></div>
+Example: [CFD-GO/TCLB](/repo/CFD-GO/TCLB)
+
+Maybe someday I will extend it's capabilities.

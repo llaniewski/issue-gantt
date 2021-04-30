@@ -1,6 +1,7 @@
 
 var ig_secure_cookie = true;
-var ig_I_am_secure = false;;
+var ig_I_am_secure = false;
+var ig_gh_token = "";
 
 $(function() {
   console.log(location.hostname);
@@ -23,11 +24,12 @@ function ig_go_secure() {
 
 function ig_editor_login () {
       var authenticator = new netlify.default ({site_id: "tclb.io"});
-      authenticator.authenticate({provider:"github", scope: "user"}, function(err, data) {
+      authenticator.authenticate({provider:"github", scope: "repo"}, function(err, data) {
         if (err) {
           return alert("Error Authenticating with GitHub: " + err);
         }
-        Cookies.set('gh_token',data.token, { secure: ig_secure_cookie });
+        Cookies.set('gh_token', data.token, { secure: ig_secure_cookie });
+        ig_gh_token = data.token;
         ig_editor_check_login();
       });
 }
@@ -70,6 +72,7 @@ function ig_editor_disp_prof(profile) {
 function ig_editor_check_login() {
   if (ig_I_am_secure) {
     var gh_token = Cookies.get('gh_token');
+    ig_gh_token = gh_token;
     if (gh_token) {
       console.log(gh_token);
       $("#nav-login").hide();

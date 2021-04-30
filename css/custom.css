@@ -30,3 +30,7 @@
 #nav-usermenu0 {
 	display: none;
 }
+
+.wide-post {
+	max-width:none;
+}
