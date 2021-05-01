@@ -23,7 +23,7 @@ function ig_go_secure() {
 }
 
 function ig_editor_login () {
-      var authenticator = new netlify.default ({site_id: "tclb.io"});
+      var authenticator = new netlify.default ({site_id: "gantt.tclb.io"});
       authenticator.authenticate({provider:"github", scope: "repo"}, function(err, data) {
         if (err) {
           return alert("Error Authenticating with GitHub: " + err);
