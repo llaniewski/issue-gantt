@@ -1,5 +1,5 @@
 baseURL = "https://gantt.tclb.io/"
-title   = "IssueGantt"
+title   = "gantt.tclb.io"
 languageCode = "en-us"
 theme = "hugo-theme-hello-friend-ng"
 
@@ -61,7 +61,7 @@ disableHugoGeneratorInject = false
 
   # Home subtitle of the index page.
   #
-  homeSubtitle = "Home"
+  homeSubtitle = "Browser-side Gantt chart from GitHub issues"
 
   # Set a background for the homepage
   # backgroundImage = "assets/images/background.jpg"
@@ -121,7 +121,7 @@ disableHugoGeneratorInject = false
 
   [params.logo]
     logoMark     = ">"
-    logoText     = "ls -la project/tasks/"
+    logoText     = "ls -la tasks/"
     logoHomeLink = "/"
     # Set true to remove the logo cursor entirely.
     # logoCursorDisabled = false

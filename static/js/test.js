@@ -30,8 +30,9 @@ function ig_get_repo_name() {
 	if (path[1] != "repo") return;
 	if (path[2] == "") return
 	if (path[3] == "") return
-    ig_repo_user = path[2];
+	ig_repo_user = path[2];
 	ig_repo_name = path[3];
+	$(".logo__text").text("ls " + ig_repo_user + "/" + ig_repo_name + "/tasks");
 }
 
 function ig_create_task(issue) {
