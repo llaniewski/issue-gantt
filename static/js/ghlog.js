@@ -43,22 +43,14 @@ function ig_editor_logout () {
 
 $(function() {
   $("ul#navbar-nav").append(
-    $("<li>", { class: "nav-item dropdown", id: "nav-logout" }).append(
-      $("<a>", { class: "nav-link dropdown-toggle", id:"navbarDropdownMenuLink", 'data-toggle':"dropdown" })
-        .append($("<span>", { class:"caret" }))
-        .attr("href", "#")
-        .append(
-          $("<div>", { class: "avatar-container" }).append(
-            $("<img>", { id: "nav-profile-avatar", class: "avatar-img rounded-circle" })
-          )
-        )
-    ).append(
-      $("<div>", { class: "dropdown-menu dropdown-menu-right", 'aria-labelledby': "navbarDropdownMenuLink"})
-        .append(
-          $("<a>", { class: "dropdown-item" })
-            .append($("<span>").text("LOGOUT"))
-            .attr("href", "javascript:ig_editor_logout();")
-        )
+    $("<li>", { class: "nav-item", id: "nav-logout" }).append(
+          $("<a>", { href: "javascript:ig_editor_logout();" }).text("Logout")
+    ).hide()
+  ).append(
+    $("<li>", { class: "nav-item", id: "nav-avatar" }).append(
+      $("<div>", { class: "avatar-container" }).append(
+        $("<img>", { id: "nav-profile-avatar", class: "avatar-img rounded-circle" })
+      )
     ).hide()
   );
 })
@@ -66,6 +58,7 @@ $(function() {
 
 function ig_editor_disp_prof(profile) {
           $("#nav-profile-avatar").attr("src",profile.avatar_url);
+          $("#nav-avatar").show();
           $("#nav-logout").show();
 }
 
