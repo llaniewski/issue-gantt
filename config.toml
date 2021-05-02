@@ -95,10 +95,10 @@ disableHugoGeneratorInject = false
   #
   customCSS = [ "/fg/frappe-gantt.css", "/css/custom.css" ]
   customJS  = [
-	"https://unpkg.com/jquery",
-	"https://unpkg.com/netlify-auth-providers",
-	"https://unpkg.com/js-cookie",
-	"https://unpkg.com/github-api/dist/GitHub.bundle.min.js",
+	"/js/jquery.min.js",
+	"/js/netlify.js",
+	"/js/js.cookie.js",
+	"/js/GitHub.bundle.min.js",
 	"/js/ghlog.js"
   ]
 

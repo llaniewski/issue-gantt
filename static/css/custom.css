@@ -31,6 +31,12 @@
 	display: none;
 }
 
-.wide-post {
+.post-fullscreen {
 	max-width:none;
+	margin: 0;
+	padding: 0;
+}
+
+.post-content-fullscreen {
+        margin: 0;
 }
