@@ -40,17 +40,24 @@ function ig_create_task(issue) {
 	startdate = issue.created_at;
 	enddate = issue.updated_at;
 	number = issue.number;
+	dependencies = "";
 	ig_start_regex = /([Ss]tart[Dd]ate)\s*:\s*([^\s]*)/;
 	ig_end_regex = /([Ee]nd[Dd]ate|[Dd]ue[Dd]ate)\s*:\s*([^\s]*)/;
+	ig_dep_regex = /([Dd]epends)\s*:\s*([^\s]*)/;
 	m = issue.body.match(ig_start_regex);
 	if (m) if (m[2]) startdate = m[2];
 	m = issue.body.match(ig_end_regex);
 	if (m) if (m[2]) enddate = m[2];
+	m = issue.body.match(ig_dep_regex);
+	if (m) if (m[2]) dependencies =  m[2];
 	return {
 		name: title,
 		start: startdate,
 		end: enddate,
-		issue_number: number
+		issue_number: number,
+		id: "#" + number,
+		dependencies: dependencies,
+		progress: 0
 	}
 }
 
@@ -67,6 +74,7 @@ function ig_get_issues() {
 				if (! err) {
 					console.log(issues);
 					tasks = $.map(issues, ig_create_task)
+					tasks.sort((a,b) => a.start.localeCompare(b.start));
 					console.log(tasks);
 					iq_create_gantt(tasks);
 				} else {
