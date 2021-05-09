@@ -70,7 +70,7 @@ function ig_get_issues() {
 		if (ig_repo_name) {
 			var repo = gh.getIssues(ig_repo_user, ig_repo_name);
 			console.log(repo);
-			repo.listIssues({}, function(err, issues) {
+			repo.listIssues({per_page: 100, pulls: false, state: "open"}, function(err, issues) {
 				if (! err) {
 					console.log(issues);
 					tasks = $.map(issues, ig_create_task)
