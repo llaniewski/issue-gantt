@@ -1,14 +1,64 @@
+var ig_repo_user = "";
+var ig_repo_name = "";
+var ig_repo_issues = null;
 
+var ig_start_regex = /([Gg]antt[Ss]tart|[Ss]tart[Dd]ate)\s*:\s*([^\s]*)/;
+var ig_start_tag = "StartDate";
+var ig_end_regex = /([Gg]antt[Ee]nd|[Gg]antt[Dd]ue|[Ee]nd[Dd]ate|[Dd]ue[Dd]ate)\s*:\s*([^\s]*)/;
+var ig_end_tag = "EndDate";
+var ig_dep_regex = /([Dd]epends)\s*:\s*([^\s]*)/;
+var ig_dep_tag = "Depends";
 
+function iq_update_ibody(ibody, regex, tag, value) {
+	var found = ibody.search(regex) >= 0;
+	if(found){
+		return ibody.replace(regex, "$1: " + value);
+	} else {
+		return ibody + "\n" + tag + ": " + value;
+	}
+}
+
+function iq_task_date_change(task, start, end) {
+	console.log(task, start, end);
+	if (ig_repo_issues) {
+		ibody = task.body;
+		ibody = iq_update_ibody(ibody, ig_start_regex, ig_start_tag, start.toISOString());
+		ibody = iq_update_ibody(ibody,   ig_end_regex,   ig_end_tag,   end.toISOString());
+		console.log(ibody);
+		if (ibody != task.body) {
+			ig_repo_issues.editIssue(task.issue_number, {body:ibody}, function(err, issue) {
+				if (! err) {
+					console.log(issue);
+				} else {
+					console.log(err);
+				}
+			});
+	
+		}
+/*
+		ig_repo_issues.listIssueComments(task.issue_number, function(err, comments) {
+			if (! err) {
+				console.log(comments);
+			} else {
+				console.log(err);
+			}
+		});
+*/
+
+	}
+}
+
+function iq_task_html(task) {
+	return task.body_html;
+}
 
 function iq_create_gantt(tasks) {
 	var gantt_chart = new Gantt(".gantt-target", tasks, {
 		on_click: function (task) {
 			console.log(task);
 		},
-		on_date_change: function(task, start, end) {
-			console.log(task, start, end);
-		},
+		on_date_change: iq_task_date_change,
+		custom_popup_html: iq_task_html,
 		on_progress_change: function(task, progress) {
 			console.log(task, progress);
 		},
@@ -19,9 +69,6 @@ function iq_create_gantt(tasks) {
 		language: 'en'
 	});
 }
-
-var ig_repo_user = "";
-var ig_repo_name = "";
 
 function ig_get_repo_name() {
 	const urlobj = new URL($(location).attr("href"));
@@ -41,14 +88,12 @@ function ig_create_task(issue) {
 	enddate = issue.updated_at;
 	number = issue.number;
 	dependencies = "";
-	ig_start_regex = /([Ss]tart[Dd]ate)\s*:\s*([^\s]*)/;
-	ig_end_regex = /([Ee]nd[Dd]ate|[Dd]ue[Dd]ate)\s*:\s*([^\s]*)/;
-	ig_dep_regex = /([Dd]epends)\s*:\s*([^\s]*)/;
-	m = issue.body.match(ig_start_regex);
+	ibody = issue.body;
+	m = ibody.match(ig_start_regex);
 	if (m) if (m[2]) startdate = m[2];
-	m = issue.body.match(ig_end_regex);
+	m = ibody.match(ig_end_regex);
 	if (m) if (m[2]) enddate = m[2];
-	m = issue.body.match(ig_dep_regex);
+	m = ibody.match(ig_dep_regex);
 	if (m) if (m[2]) dependencies =  m[2];
 	return {
 		name: title,
@@ -57,7 +102,10 @@ function ig_create_task(issue) {
 		issue_number: number,
 		id: "#" + number,
 		dependencies: dependencies,
-		progress: 0
+		progress: 0,
+		body: ibody,
+		body_html: issue.body_html,
+		title: title
 	}
 }
 
@@ -68,9 +116,9 @@ function ig_get_issues() {
 			token: ig_gh_token
 		});
 		if (ig_repo_name) {
-			var repo = gh.getIssues(ig_repo_user, ig_repo_name);
-			console.log(repo);
-			repo.listIssues({per_page: 100, pulls: false, state: "open"}, function(err, issues) {
+			ig_repo_issues = gh.getIssues(ig_repo_user, ig_repo_name);
+			console.log(ig_repo_issues);
+			ig_repo_issues.listIssues({per_page: 100, pulls: false, state: "open", AcceptHeader: "full"}, function(err, issues) {
 				if (! err) {
 					console.log(issues);
 					tasks = $.map(issues, ig_create_task)
