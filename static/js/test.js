@@ -66,7 +66,8 @@ function iq_create_gantt(tasks) {
 			console.log(mode);
 		},
 		view_mode: 'Month',
-		language: 'en'
+		language: 'en',
+		draggable: true
 	});
 }
 
@@ -105,7 +106,8 @@ function ig_create_task(issue) {
 		progress: 0,
 		body: ibody,
 		body_html: issue.body_html,
-		title: title
+		title: title,
+		draggable: true
 	}
 }
 
